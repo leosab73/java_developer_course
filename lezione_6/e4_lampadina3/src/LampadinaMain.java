@@ -1,12 +1,20 @@
 public class LampadinaMain {
     public static void main(String[] args) {
-        Lampadina light = new Lampadina(20);
-        Interruttore interruttore1 = new Interruttore(light);
-        Interruttore interruttore2 = new Interruttore(light);
-
-        interruttore1.accendiLampadina();
-        System.out.println(light.getStato());
-        interruttore2.spegniLampadina();
-        System.out.println(light.getStato());
+        Lampadina[] filara = new Lampadina[3];
+        filara[0] = new Lampadina("primaLampadina", 20);
+        filara[1] = new Lampadina("secondaLampadina", 20);
+        filara[2] = new Lampadina("terzaLampadina", 20);
+        Interruttore interruttore = new Interruttore(filara);
+        interruttore.mettiCorrente();
+        System.out.println("Corrente: " + interruttore.getCorrente());
+        interruttore.accendiLampadina();
+        for (Lampadina lampadina : filara) {
+            System.out.println(lampadina.getNome() + ", stato: " + lampadina.getStato());
+        }
+        interruttore.togliCorrente();
+        System.out.println("Corrente: " + interruttore.getCorrente());
+        for (Lampadina lampadina : filara) {
+            System.out.println(lampadina.getNome() + ", stato: " + lampadina.getStato());
+        }
     }
 }
