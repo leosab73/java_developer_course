@@ -9,5 +9,15 @@ public class ListaDiInteriMain {
         System.out.println(lista.contains(3));
         System.out.println(lista.get(2));
         System.out.println(lista.indexOf(3));
+        lista.aggiungiAPosizione(2,6);
+        System.out.println(lista.toString());
+        lista.eliminaPrimaOccorrenza(2);
+        System.out.println(lista.toString());
+        lista.add(4);
+        lista.add(5);
+        lista.add(6);
+        System.out.println(lista.toString());
+        lista.eliminaElementoI(3);
+        System.out.println(lista.toString());
     }
 }
