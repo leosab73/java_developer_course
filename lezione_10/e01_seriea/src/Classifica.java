@@ -2,7 +2,8 @@ public class Classifica {
     private Squadra[] classifica;
 
     public Classifica(Squadra[] squadre) {
-        classifica = squadre;
+        classifica = new Squadra[squadre.length];
+        System.arraycopy(squadre, 0, classifica, 0, squadre.length);
     }
 
     private static void assegnaGol(Squadra squadraCasa, int golCasa, Squadra squadraOspite, int golOspite) {
@@ -29,25 +30,23 @@ public class Classifica {
         }
     }
 
-    private void ordinaClassifica() {
-        Squadra[] classificaOrdinata = new Squadra[classifica.length];
-        classificaOrdinata[0] = classifica[0];
-        for (int i = 1; i < classifica.length; i++) {
-            for (int j = i - 1; j >= 0; j--) {
+    private Squadra[] ordinaClassifica() {
+        for (int i = 0; i < classifica.length; i++) {
+            for (int j = i + 1; j < classifica.length; j++) {
                if (classifica[i].getPunteggio() > classifica[j].getPunteggio()) {
-                   Squadra temp = classificaOrdinata[i];
-                   classificaOrdinata[i] = classificaOrdinata[j];
-                   classificaOrdinata[j] = temp;
+                   Squadra temp = classifica[i];
+                   classifica[i] = classifica[j];
+                   classifica[j] = temp;
                }
             }
         }
-        classifica = classificaOrdinata;
+        return classifica;
     }
 
     public void getClassifica() {
         ordinaClassifica();
         for (Squadra squadra : classifica) {
-            System.out.println(squadra);
+            System.out.println(squadra.getNome() + ": " + squadra.getPunteggio());
         }
     }
 
