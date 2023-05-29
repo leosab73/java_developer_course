@@ -5,21 +5,69 @@ public class Classifica {
         classifica = squadre;
     }
 
-    public esitoPartita(Squadra squadraCasa, int golCasa, Squadra squadraOspite, int golOspite) {
-
+    private static void assegnaGol(Squadra squadraCasa, int golCasa, Squadra squadraOspite, int golOspite) {
+        squadraCasa.setGolFatti(golCasa);
+        squadraOspite.setGolFatti(golOspite);
+        squadraCasa.setGolSubiti(golOspite);
+        squadraOspite.setGolSubiti(golCasa);
     }
 
-    public void getClassifica() {
-        for (int i = 0; i < classifica.length; i++) {
-            System.out.println(classifica[i]);
+    public void esitoPartita(Squadra squadraCasa, int golCasa, Squadra squadraOspite, int golOspite) {
+        if (golCasa > golOspite) {
+            squadraCasa.setPunteggio(3);
+            assegnaGol(squadraCasa, golCasa, squadraOspite, golOspite);
+            System.out.println("La squadra " + squadraCasa.getNome() + " vince sulla squadra " + squadraOspite.getNome());
+        } else if (golCasa == golOspite) {
+            squadraCasa.setPunteggio(1);
+            squadraOspite.setPunteggio(1);
+            assegnaGol(squadraCasa, golCasa, squadraOspite, golOspite);
+            System.out.println("La squadra " + squadraCasa.getNome() + " e la squadra " + squadraOspite.getNome() + " hanno pareggiato");
+        } else {
+            squadraOspite.setPunteggio(3);
+            assegnaGol(squadraCasa, golCasa, squadraOspite, golOspite);
+            System.out.println("La squadra " + squadraCasa.getNome() + " vince sulla squadra " + squadraOspite.getNome());
         }
     }
 
-    public String getMiglioreAttacco() {
-
+    private void ordinaClassifica() {
+        Squadra[] classificaOrdinata = new Squadra[classifica.length];
+        classificaOrdinata[0] = classifica[0];
+        for (int i = 1; i < classifica.length; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+               if (classifica[i].getPunteggio() > classifica[j].getPunteggio()) {
+                   Squadra temp = classificaOrdinata[i];
+                   classificaOrdinata[i] = classificaOrdinata[j];
+                   classificaOrdinata[j] = temp;
+               }
+            }
+        }
+        classifica = classificaOrdinata;
     }
 
-    public String getPeggiorDifesa() {
+    public void getClassifica() {
+        ordinaClassifica();
+        for (Squadra squadra : classifica) {
+            System.out.println(squadra);
+        }
+    }
 
+    public Squadra getMiglioreAttacco() {
+        Squadra migliorAttacco = classifica[0];
+        for (int i = 1; i < classifica.length; i++) {
+            if (classifica[i].getGolFatti() > migliorAttacco.getGolFatti()) {
+                migliorAttacco = classifica[i];
+            }
+        }
+        return migliorAttacco;
+    }
+
+    public Squadra getPeggiorDifesa() {
+        Squadra peggiorDifesa = classifica[0];
+        for (int i = 1; i < classifica.length; i++) {
+            if (classifica[i].getGolSubiti() > peggiorDifesa.getGolSubiti()) {
+                peggiorDifesa = classifica[i];
+            }
+        }
+        return peggiorDifesa;
     }
 }
