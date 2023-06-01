@@ -17,23 +17,23 @@ public class Classifica {
         if (golCasa > golOspite) {
             squadraCasa.setPunteggio(3);
             assegnaGol(squadraCasa, golCasa, squadraOspite, golOspite);
-            System.out.println("La squadra " + squadraCasa.getNome() + " vince sulla squadra " + squadraOspite.getNome());
+            System.out.println(squadraCasa.getNome() + ": " + golCasa + " - " + squadraOspite.getNome() + ": " + golOspite);
         } else if (golCasa == golOspite) {
             squadraCasa.setPunteggio(1);
             squadraOspite.setPunteggio(1);
             assegnaGol(squadraCasa, golCasa, squadraOspite, golOspite);
-            System.out.println("La squadra " + squadraCasa.getNome() + " e la squadra " + squadraOspite.getNome() + " hanno pareggiato");
+            System.out.println(squadraCasa.getNome() + ": " + golCasa + " - " + squadraOspite.getNome() + ": " + golOspite);
         } else {
             squadraOspite.setPunteggio(3);
             assegnaGol(squadraCasa, golCasa, squadraOspite, golOspite);
-            System.out.println("La squadra " + squadraCasa.getNome() + " vince sulla squadra " + squadraOspite.getNome());
+            System.out.println(squadraCasa.getNome() + ": " + golCasa + " - " + squadraOspite.getNome() + ": " + golOspite);
         }
     }
 
     private Squadra[] ordinaClassifica() {
         for (int i = 0; i < classifica.length; i++) {
             for (int j = i + 1; j < classifica.length; j++) {
-               if (classifica[i].getPunteggio() > classifica[j].getPunteggio()) {
+               if (classifica[i].getPunteggio() < classifica[j].getPunteggio()) {
                    Squadra temp = classifica[i];
                    classifica[i] = classifica[j];
                    classifica[j] = temp;
