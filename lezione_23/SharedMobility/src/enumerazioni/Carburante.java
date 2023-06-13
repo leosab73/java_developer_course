@@ -1,5 +1,7 @@
+package enumerazioni;
+
 public enum Carburante {
     DIESEL,
     BENZINA,
-    ELETTRICITA
+    ELETTRICO
 }
